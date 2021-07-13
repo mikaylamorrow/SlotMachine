@@ -6,19 +6,19 @@ You'll start with $50. You'll be asked if you want to play.
 print(60 * '=')
 
 #Constants:
-INIT_STAKE = 50
+INIT_money = 50
 ITEMS = ["CHERRY", "ORANGE", "PLUM", "LEMON", "BELL", "BAR"]
 
 firstWheel = None
 secondWheel = None
 thirdWheel = None
-stake = INIT_STAKE
+money = INIT_money
 
 
 def play():
-    global stake, firstWheel, secondWheel, thirdWheel
+    global money, firstWheel, secondWheel, thirdWheel
     playQuestion = askPlayer()
-    while(stake != 0 and playQuestion == True):
+    while(money != 0 and playQuestion == True):
         firstWheel = spinWheel()
         secondWheel = spinWheel()
         thirdWheel = spinWheel()
@@ -27,15 +27,15 @@ def play():
 
 
 def askPlayer():
-    global stake
+    global money
     while(True):
-        answer = input("\033[1;35;48m Would you like to play? " + "You have $" + str(stake) + ". " )
+        answer = input("\033[1;35;48m Would you like to play? " + "You have $" + str(money) + ". " )
         answer = answer.lower()
         print(60 * '-')
         if(answer == "yes" or answer == "y"):
             return True
         elif(answer == "no" or answer == "n"):
-            print("\t\t\033[1;34;48m You ended the game with $" + str(stake) + " in your hand. ")
+            print("\t\t\033[1;34;48m You ended the game with $" + str(money) + " in your hand. ")
             return False
         else:
             print("wrong input!")
@@ -51,7 +51,7 @@ def spinWheel():
 def printScore():
    # prints the current score
 
-   global stake, firstWheel, secondWheel, thirdWheel
+   global money, firstWheel, secondWheel, thirdWheel
    if((firstWheel == "CHERRY") and (secondWheel != "CHERRY")):
        win = 2
    elif((firstWheel == "CHERRY") and (secondWheel == "CHERRY") and (thirdWheel != "CHERRY")):
@@ -69,7 +69,7 @@ def printScore():
    else:
        win = -1
 
-   stake += win
+   money += win
 
    if(win > 0):
        print('\033[1;32;48m {:<10}{:^10}{:^10}{:>28}'.format(firstWheel, secondWheel, thirdWheel, ("You Win $")) + str(win))
