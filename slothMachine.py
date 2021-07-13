@@ -14,39 +14,43 @@ secondWheel = None
 thirdWheel = None
 stake = INIT_STAKE
 
+
 def play():
-   global stake, firstWheel, secondWheel, thirdWheel
-   playQuestion = askPlayer()
-   while(stake != 0 and playQuestion == True):
-       firstWheel = spinWheel()
-       secondWheel = spinWheel()
-       thirdWheel = spinWheel()
-       printScore()
-       playQuestion = askPlayer()
+    global stake, firstWheel, secondWheel, thirdWheel
+    playQuestion = askPlayer()
+    while(stake != 0 and playQuestion == True):
+        firstWheel = spinWheel()
+        secondWheel = spinWheel()
+        thirdWheel = spinWheel()
+        printScore()
+        playQuestion = askPlayer()
+
 
 def askPlayer():
-   global stake
-   while(True):
-       answer = input("\033[1;35;48m Would you like to play? " + "You have $" + str(stake) + ". " )
-       answer = answer.lower()
-       print(60 * '-')
-       if(answer == "yes" or answer == "y"):
-           return True
-       elif(answer == "no" or answer == "n"):
-           print("\t\t\033[1;34;48m You ended the game with $" + str(stake) + " in your hand. ")
-           return False
-       else:
-           print("wrong input!")
+    global stake
+    while(True):
+        answer = input("\033[1;35;48m Would you like to play? " + "You have $" + str(stake) + ". " )
+        answer = answer.lower()
+        print(60 * '-')
+        if(answer == "yes" or answer == "y"):
+            return True
+        elif(answer == "no" or answer == "n"):
+            print("\t\t\033[1;34;48m You ended the game with $" + str(stake) + " in your hand. ")
+            return False
+        else:
+            print("wrong input!")
+
 
 def spinWheel():
     # returns a random item from the wheel
-  
+
    randomNumber = random.randint(0, 5)
    return ITEMS[randomNumber]
 
+
 def printScore():
    # prints the current score
-   
+
    global stake, firstWheel, secondWheel, thirdWheel
    if((firstWheel == "CHERRY") and (secondWheel != "CHERRY")):
        win = 2
@@ -66,9 +70,9 @@ def printScore():
        win = -1
 
    stake += win
-   if(win > 0):
-       print("\033[1;32;48m" + firstWheel + '\t||\t' + secondWheel + '\t||\t' + thirdWheel + '\t\t\t\t\t You WIN $' + str(win))
-   else:
-       print("\033[1;31;48m" + firstWheel + '\t||\t' + secondWheel + '\t||\t' + thirdWheel + '\t\t\t\t\t\t You LOSE :(')
 
+   if(win > 0):
+       print('\033[1;32;48m {:<10}{:^10}{:^10}{:>28}'.format(firstWheel, secondWheel, thirdWheel, ("You Win $")) + str(win))
+   else:
+       print('\033[1;31;48m {:<10}{:^10}{:^10}{:>28}'.format(firstWheel, secondWheel, thirdWheel, ("You Lose")))
 play()
